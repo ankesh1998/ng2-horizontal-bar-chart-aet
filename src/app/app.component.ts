@@ -1,8 +1,7 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, Injector, OnInit, ViewChild } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
-import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'my-app',
@@ -11,8 +10,6 @@ import { BaseChartDirective } from 'ng2-charts';
   providers: [DecimalPipe],
 })
 export class AppComponent {
-  @ViewChild(BaseChartDirective) baseChart: BaseChartDirective;
-
   chartColors = [
     {
       backgroundColor: [
@@ -32,22 +29,12 @@ export class AppComponent {
       backgroundColor: 'grey',
     },
   ];
-  getLegendCallback = (function (self) {
-    function handle(chart) {
-      return chart.legend.legendItems;
-    }
-
-    return function (chart) {
-      return handle(chart);
-    };
-  })(this);
 
   public barChartOptions: ChartOptions = {
     responsive: true,
     legend: {
       display: true,
       position: 'bottom',
-      legendCallback: this.getLegendCallback,
     },
     scales: {
       xAxes: [
@@ -86,7 +73,6 @@ export class AppComponent {
         600000,
       ],
       stack: 'a',
-      hidden: false,
     },
     {
       label: 'Approved Cost',
@@ -95,7 +81,6 @@ export class AppComponent {
         5647241.6400000015, 5143398.600000001, 4811760,
       ],
       stack: 'b',
-      hidden: false,
     },
   ];
 
@@ -116,23 +101,5 @@ export class AppComponent {
 
   constructor(private injector: Injector) {
     this.decimalPipe = injector.get<DecimalPipe>(DecimalPipe);
-  }
-
-  onSelect(indexItem): void {
-    const ci = this.baseChart;
-    if (this.barChartData[indexItem].hidden === false) {
-      this.barChartData[indexItem].hidden = true;
-    } else {
-      this.barChartData[indexItem].hidden = false;
-    }
-    ci.update();
-
-    /** If every dataset's `hidden` key is `true`, re-assign all `hidden` keys with value of `false` */
-    if (this.barChartData.every((dataset) => dataset.hidden === true)) {
-      this.barChartData.map((eachDataset) =>
-        Object.assign(eachDataset, { hidden: false })
-      );
-      ci.update();
-    }
   }
 }
