@@ -9,9 +9,23 @@
         [legend]="barChartLegend"
         [chartType]="barChartType"
         [plugins]="barChartPlugins"
-        [colors] ="chartColors"
+        [colors]="chartColors"
       ></canvas>
-      <div id="legend"></div>
     </div>
   </div>
+</div>
+
+<div *ngIf="barChartData" class="legends">
+  <div class="legend">
+    <span class="box" style="background:#DF5413"></span> Actual Cost(Above 95%)
+  </div>
+  <div class="legend">
+    <span class="box" style="background:orange"></span> Actual Cost(Between 75%
+    to 95%)
+  </div>
+  <div class="legend">
+    <span class="box" style="background:#73DF13"></span> Actual Cost(Less than
+    75%)
+  </div>
+  <div class="legend"><span class="box"></span> Approved Cost</div>
 </div>

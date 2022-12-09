@@ -1,0 +1,19 @@
+.legends {
+  display: flex;
+  margin-top: 30px;
+  justify-content: center;
+  .legend {
+    margin-right: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    .box {
+      background: gray;
+      min-width: 30px;
+      height: 10px;
+      display: inline-block;
+      margin-right: 5px;
+    }
+  }
+}
